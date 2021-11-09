@@ -1,0 +1,19 @@
+{
+  "name": "uhiggs",
+  "version": "1.0.0",
+  "description": "Component library build according to the Atomic Design pattern.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raarnout/UHiggs.git"
+  },
+  "author": "Ronald Aarnoutse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raarnout/UHiggs/issues"
+  },
+  "homepage": "https://github.com/raarnout/UHiggs#readme"
+}
