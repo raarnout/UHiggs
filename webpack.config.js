@@ -10,7 +10,8 @@ module.exports = {
             'public/**/*'
         ]
     },
-    entry: './src/index.js',
+    entry: './src/index.tsx',
+    devtool: 'inline-source-map',
     module: {
         rules: [
             {
@@ -21,6 +22,11 @@ module.exports = {
                 }
             },
             {
+                test: /\.(ts|tsx?)$/,
+                exclude: /node_modules/,
+                use: 'ts-loader'
+            }, 
+            {
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -29,6 +35,13 @@ module.exports = {
                 ]
             }
         ]
+    },
+    resolve: {
+        extensions: [
+            '.tsx',
+            '.ts',
+            '.js'
+        ],
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
