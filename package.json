@@ -6,9 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --progress",
     "watch": "webpack --config webpack.config.js --watch --progress",
-    "start": "webpack serve --config webpack.config.js --progress",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "start": "webpack serve --config webpack.config.js --progress"
   },
   "repository": {
     "type": "git",
@@ -32,10 +30,6 @@
   "devDependencies": {
     "@babel/core": "7.16.0",
     "@babel/preset-env": "7.16.4",
-    "@storybook/addon-actions": "^6.4.7",
-    "@storybook/addon-essentials": "^6.4.7",
-    "@storybook/addon-links": "^6.4.7",
-    "@storybook/html": "^6.4.7",
     "autoprefixer": "10.4.0",
     "babel-loader": "8.2.3",
     "copy-webpack-plugin": "10.0.0",
