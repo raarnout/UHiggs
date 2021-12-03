@@ -4,10 +4,9 @@
   "description": "Uhiggs - Bootstrap 5 component library",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack --watch",
-    "start": "webpack serve --open",
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js --progress",
+    "watch": "webpack --config webpack.config.js --watch --progress",
+    "start": "webpack serve --config webpack.config.js --progress"
   },
   "repository": {
     "type": "git",

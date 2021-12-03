@@ -47,16 +47,6 @@ module.exports = {
 				{ from: "src/img", to: "img" },
 			]
 		})
-		// // Copy dist folder to static
-		// , new FileManagerPlugin({
-		// 	events: {
-		// 		onEnd: {
-		// 		copy: [
-		// 			{ source: "./dist/", destination: "./static" }
-		// 		]
-		// 		}
-		// 	}
-		// }),
 	],
 	module: {
 		rules: [
