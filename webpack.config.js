@@ -4,20 +4,15 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-const opts = {
-	rootDir: process.cwd(),
-	devBuild: process.env.NODE_ENV !== "production"
-};
-
 module.exports = {
 	entry: {
 		app: "./src/js/app.js"
 	},
-	mode: opts.devBuild === "production" ? "production" : "development",
-	devtool: opts.devBuild === "production" ? "source-map" : "inline-source-map",
+	mode: "development",
+	devtool: "inline-source-map",
 	output: {
-		path: Path.resolve(opts.rootDir, 'dist'),
-		pathinfo: opts.devBuild,
+		path: Path.resolve(process.cwd(), 'dist'),
+		pathinfo: true,
 		filename: "js/[name].js",
 		chunkFilename: "js/[name].js",
 	},
@@ -35,12 +30,10 @@ module.exports = {
 		runtimeChunk: false
 	},
 	plugins: [
-		// Extract css files to seperate bundle
 		new MiniCssExtractPlugin({
 			filename: "css/app.css",
 			chunkFilename: "css/app.css",
 		}),
-		// Copy fonts and images to dist
 		new CopyWebpackPlugin({
 			patterns: [
 				{ from: "src/fonts", to: "fonts" },
@@ -50,7 +43,6 @@ module.exports = {
 	],
 	module: {
 		rules: [
-			// Babel-loader
 			{
 				test: /\.js$/,
 				exclude: /(node_modules)/,
@@ -61,7 +53,6 @@ module.exports = {
 					}
 				}
 			},
-			// Css-loader & sass-loader
 			{
 				test: /\.(sa|sc|c)ss$/,
 				use: [
@@ -71,7 +62,6 @@ module.exports = {
 					"sass-loader"
 				]
 			},
-			// Load fonts
 			{
 				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
 				type: "asset/resource",
@@ -79,7 +69,6 @@ module.exports = {
 					filename: "fonts/[name][ext]"
 				}
 			},
-			// Load images
 			{
 				test: /\.(png|jpg|jpeg|gif)(\?v=\d+\.\d+\.\d+)?$/,
 				type: "asset/resource",
@@ -89,16 +78,9 @@ module.exports = {
 			}
 		]
 	},
-	// resolve: {
-	// 	extensions: [".js", ".scss"],
-	// 	modules: ["node_modules"],
-	// 	alias: {
-	// 		request$: "xhr"
-	// 	}
-	// },
 	devServer: {
 		static: {
-			directory: Path.join(__dirname, "/static"),
+			directory: Path.join(process.cwd(), "/static"),
 		},
 		compress: true,
 		port: 8080,

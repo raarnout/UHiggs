@@ -1,10 +1,15 @@
-import '../sass/app.scss';
+import "../scss/app.scss";
 
-function component() {
-	const element = document.createElement('div');
-	element.innerHTML = '<div>lala</div>'
-	element.classList.add('hello');
-	return element;
-}
+import "./modules/bootstrap";
+import "./modules/sidebar";
+// import "./modules/theme";
+import "./modules/feather";
 
-document.body.appendChild(component());
+// Charts
+import "./modules/chartjs";
+
+// // Forms
+import "./modules/flatpickr";
+
+// Maps
+import "./modules/vector-maps";
