@@ -1,13 +1,23 @@
-// 0. Include Bootstrap first cause UHiggs depends on it.
+/** 
+ * 1. Variables
+ * Include Bootstrap vendor files first, 
+ * because Uhiggs is build on bootstrap.
+ */
+@import "1-variables/variables";
 @import "5-vendor/bootstrap";
 
-// 1. Variables
-@import "1-variables/variables";
+/** 
+ * 2. Mixins
+ */
 
-// 2. Mixins
+/** 
+ * 3. Components
+ */
 
-// 3. Components
+/** 
+ * 4. Utilities
+ */
 
-// 4. Utilities
-
-// 5. Vendor
+/** 
+ * 5. Vendor
+ */
