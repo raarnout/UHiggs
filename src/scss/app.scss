@@ -1,6 +1,8 @@
+// 0. Include Bootstrap first cause UHiggs depends on it.
+@import "5-vendor/bootstrap";
+
 // 1. Variables
 @import "1-variables/variables";
-@import "5-vendor/bootstrap"; // Import bootstrap vendor here cause Uhiggs depends on it.
 
 // 2. Mixins
 
