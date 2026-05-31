@@ -8,6 +8,10 @@
     "jsx": "react-jsx",
     "useDefineForClassFields": true,
 
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
