@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { ArrowRight, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight, Download, Plus } from "lucide-react";
 
 import { Button } from "./button.js";
 
@@ -115,7 +115,9 @@ export const AllColors: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button color="primary">Primary</Button>
+        code: `import { Button } from "@uhiggs/ui";
+
+<Button color="primary">Primary</Button>
 <Button color="secondary">Secondary</Button>
 <Button color="success">Success</Button>
 <Button color="info">Info</Button>
@@ -146,7 +148,9 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button color="primary" variant="solid">Solid</Button>
+        code: `import { Button } from "@uhiggs/ui";
+
+<Button color="primary" variant="solid">Solid</Button>
 <Button color="primary" variant="outline">Outline</Button>
 <Button color="primary" variant="ghost">Ghost</Button>
 <Button color="primary" variant="link">Link</Button>`,
@@ -172,7 +176,9 @@ export const AllShapes: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button shape="rounded">Rounded</Button>
+        code: `import { Button } from "@uhiggs/ui";
+
+<Button shape="rounded">Rounded</Button>
 <Button shape="square">Square</Button>
 <Button shape="pill">Pill</Button>
 <Button variant="outline" shape="pill">Outline pill</Button>`,
@@ -199,7 +205,10 @@ export const Sizes: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button size="sm">Small</Button>
+        code: `import { Plus } from "lucide-react";
+import { Button } from "@uhiggs/ui";
+
+<Button size="sm">Small</Button>
 <Button size="md">Medium</Button>
 <Button size="lg">Large</Button>
 <Button size="icon" aria-label="Add">
@@ -221,26 +230,50 @@ export const Sizes: Story = {
 };
 
 /**
- * `children` accepts any `ReactNode`, so an icon can sit before or after the
- * label. The button uses flex layout with a gap, so spacing is consistent and
- * icons inherit the text color and scale via the built-in `[&_svg]` rules.
+ * `children` accepts any `ReactNode`, so an icon can sit before the label, after
+ * it, or on both sides. The button uses flex layout with a gap, so spacing is
+ * consistent regardless of position and icons inherit the text color and scale
+ * via the built-in `[&_svg]` rules.
  */
 export const WithIcon: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button>
+        code: `import { ArrowLeft, ArrowRight, Download } from "lucide-react";
+import { Button } from "@uhiggs/ui";
+
+<Button>
+  <Download />
+  Download
+</Button>
+<Button>
   Continue
+  <ArrowRight />
+</Button>
+<Button>
+  <ArrowLeft />
+  Move
   <ArrowRight />
 </Button>`,
       },
     },
   },
   render: () => (
-    <Button>
-      Continue
-      <ArrowRight />
-    </Button>
+    <div className="flex flex-wrap items-center gap-3">
+      <Button>
+        <Download />
+        Download
+      </Button>
+      <Button>
+        Continue
+        <ArrowRight />
+      </Button>
+      <Button>
+        <ArrowLeft />
+        Move
+        <ArrowRight />
+      </Button>
+    </div>
   ),
 };
 
@@ -253,7 +286,9 @@ export const Loading: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button loading>Save changes</Button>
+        code: `import { Button } from "@uhiggs/ui";
+
+<Button loading>Save changes</Button>
 <Button loading variant="outline">Save changes</Button>
 <Button loading color="danger">Delete</Button>`,
       },
@@ -275,6 +310,15 @@ export const Loading: Story = {
 /** A disabled button is non-interactive and dimmed via the `disabled` prop. */
 export const Disabled: Story = {
   args: { disabled: true },
+  parameters: {
+    docs: {
+      source: {
+        code: `import { Button } from "@uhiggs/ui";
+
+<Button disabled>Button</Button>`,
+      },
+    },
+  },
 };
 
 /**
@@ -286,7 +330,9 @@ export const AsChildLink: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button variant="link" asChild>
+        code: `import { Button } from "@uhiggs/ui";
+
+<Button variant="link" asChild>
   <a href="https://example.com">Visit example.com</a>
 </Button>`,
       },
