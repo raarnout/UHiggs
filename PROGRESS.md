@@ -1,4 +1,4 @@
 # Progress
 
 - Button — 3 orthogonal axes: `color` (8: primary/secondary/success/info/warning/danger/light/dark), `variant` (solid/outline/ghost/link), `shape` (rounded/square/pill) + `size` (sm/md/lg/icon); `asChild` via Radix Slot, `loading` (disables + centered spinner, width preserved). Colors via token CSS-var indirection (`--btn-color`/`--btn-on`); intent tokens recolored to Bootstrap palette (oklch), same in light/dark. typecheck/lint/build/build-storybook green; `"use client"` preserved in dist.
-- Storybook docs convention — global autodocs + react-docgen-typescript; fixed Docs-page layout (intro+Usage → live Default+controls → props table → example stories; shown code = real usage). Codified in agent.md; Button stories follow it. typecheck/lint/build/build-storybook green.
+- Storybook docs convention — global autodocs + react-docgen-typescript; fixed Docs-page layout (intro+Usage → live Default+controls → props table → example stories; shown code = real usage). Codified in AGENTS.md; Button stories follow it. typecheck/lint/build/build-storybook green.

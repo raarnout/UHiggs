@@ -7,4 +7,4 @@ Standardize Storybook docs pages. Enable autodocs globally and
 layout (intro + `## Usage` → live primary story with controls → props table →
 remaining example stories, with shown code always reflecting real component
 usage rather than the Storybook render wrapper). Apply the convention to the
-`Button` stories. Documented in `agent.md`.
+`Button` stories. Documented in `AGENTS.md`.

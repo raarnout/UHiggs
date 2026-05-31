@@ -1,9 +1,14 @@
 # Project: Distributable admin UI library (@uhiggs/ui)
 
+This is the single source of truth for working in this repo — full agent instructions, code
+conventions, and project rules. Any agent (or human) reads and maintains this file.
+`CLAUDE.md` is only a Claude Code pointer + cheat-sheet and defers to this file.
+
 ## What this is
 
-- A standalone React component library published to npm, consumed in Next.js (App Router) apps.
-- Developed & documented in Storybook 10 (react-vite, ESM-only). NOT an app.
+- `@uhiggs/ui` — a standalone, **distributable** React component library published to npm and
+  consumed by Next.js (App Router) apps. It is **not** an application.
+- Developed & documented in Storybook 10 (react-vite, ESM-only).
 
 ## Stack & non-negotiables
 
@@ -11,7 +16,18 @@
 - Tailwind v4 + CSS variables. NEVER hardcode colors/radius — use tokens.
 - Primitives: Radix UI (unified `radix-ui`). Forms: react-hook-form + zod. Icons: lucide-react.
   Toasts: sonner. Command/⌘K: cmdk. Tables: @tanstack/react-table (+ @tanstack/react-virtual). Charts: recharts.
-- Variants: cva + cn() (clsx + tailwind-merge).
+- Variants: cva + `cn()` (clsx + tailwind-merge); `cn()` lives in `src/lib/utils.ts`.
+
+## Build & CSS architecture
+
+- `pnpm build` runs `bunchee && cp src/styles.css dist/styles.css`. bunchee emits a cosmetic
+  warning about the `./styles.css` export (it does not map standalone CSS exports); the `cp`
+  produces `dist/styles.css` and the build still exits 0.
+- bunchee is used specifically so per-file `"use client"` directives survive into `dist`.
+- Two CSS files by design: `src/styles.css` ships only raw token custom properties
+  (host-agnostic, what consumers import); `.storybook/tailwind.css` adds
+  `@import "tailwindcss"`, the `dark` custom-variant, and the `@theme inline` token→utility
+  mapping used during local development.
 
 ## Library design rules (critical for distribution)
 
