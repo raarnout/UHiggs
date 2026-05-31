@@ -42,5 +42,6 @@ These constraints exist because this code ships to other people's apps; violatin
 - Use plan mode for multi-file work and show the plan before writing.
 - Scope: one component (or one DataTable sub-step) plus its `<name>.stories.tsx` per session; commit per component.
 - Definition of Done per component (see [agent.md](./agent.md) for the full checklist): typed props, tokens + dark mode, a11y verified via the primitive, a story covering all variants/states in light + dark, `pnpm typecheck && pnpm lint && pnpm build` passing (show the output), `"use client"` preserved in `dist`, and a changeset added.
+- Storybook stories follow the **Storybook story conventions** in [agent.md](./agent.md): autodocs is global, the Docs page is built from the `*.stories.tsx` file (no per-component MDX), reads intro + `## Usage` → live `Default` + controls → props table → remaining stories, and every shown code snippet is real usage code (set `docs.source.code` for `render`-based stories).
 - Show command output as evidence rather than asserting success.
 - When context exceeds ~60%, write progress to `PROGRESS.md` and `/clear`.

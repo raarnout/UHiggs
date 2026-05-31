@@ -67,11 +67,15 @@ function ButtonSpinner() {
 export interface ButtonProps
   extends ComponentProps<"button">,
     VariantProps<typeof buttonVariants> {
-  /** Render the child element instead of a `<button>` (Radix Slot). */
+  /**
+   * Render the child element instead of a `<button>` (Radix Slot).
+   * @default false
+   */
   asChild?: boolean;
   /**
    * Disable the button and show a centered spinner. The button keeps the same
    * width as its non-loading state — the label is hidden in place, not removed.
+   * @default false
    */
   loading?: boolean;
 }

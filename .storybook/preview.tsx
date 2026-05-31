@@ -12,6 +12,9 @@ const withTheme: Decorator = (Story, context) => {
 };
 
 const preview: Preview = {
+  // Every component gets an autodocs page as its first "story", so the docs
+  // layout stays consistent across the library without per-file opt-in.
+  tags: ["autodocs"],
   decorators: [withTheme],
   globalTypes: {
     theme: {
@@ -30,10 +33,17 @@ const preview: Preview = {
   },
   parameters: {
     controls: {
+      sort: "requiredFirst",
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    docs: {
+      // Generate clean usage JSX from args (not the Storybook render wrapper)
+      // unless a story sets an explicit `docs.source.code`.
+      source: { type: "dynamic" },
+      toc: true,
     },
   },
 };
