@@ -20,20 +20,32 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(0.578 0.228 260.03);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.558 0.016 244.89);
+  --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --success: oklch(0.627 0.17 149.214);
+
+  /* Intent colors (Bootstrap palette, oklch). Same hue in light & dark; each
+     pairs with a readable foreground. Button drives these via --btn-color. */
+  --success: oklch(0.552 0.123 157.01);
   --success-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.769 0.165 70.08);
+  --info: oklch(0.775 0.138 218.05);
+  --info-foreground: oklch(0.205 0 0);
+  --warning: oklch(0.844 0.172 84.93);
   --warning-foreground: oklch(0.205 0 0);
+  --danger: oklch(0.592 0.202 21.24);
+  --danger-foreground: oklch(0.985 0 0);
+  --light: oklch(0.982 0.002 247.84);
+  --light-foreground: oklch(0.205 0 0);
+  --dark: oklch(0.262 0.009 248.19);
+  --dark-foreground: oklch(0.985 0 0);
+
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -46,20 +58,13 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.985 0 0);
-  --success: oklch(0.696 0.17 149.214);
-  --success-foreground: oklch(0.205 0 0);
-  --warning: oklch(0.828 0.189 84.429);
-  --warning-foreground: oklch(0.205 0 0);
+  /* Intent colors (primary/secondary/success/info/warning/danger/light/dark and
+     destructive) are intentionally NOT overridden here — they stay identical in
+     dark mode. Only structural surface tokens flip below. */
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);

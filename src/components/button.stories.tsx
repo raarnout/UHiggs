@@ -3,6 +3,17 @@ import { ArrowRight, Plus } from "lucide-react";
 
 import { Button } from "./button.js";
 
+const COLORS = [
+  "primary",
+  "secondary",
+  "success",
+  "info",
+  "warning",
+  "danger",
+  "light",
+  "dark",
+] as const;
+
 const meta = {
   title: "Components/Button",
   component: Button,
@@ -10,17 +21,18 @@ const meta = {
     docs: {
       description: {
         component: [
-          "The `Button` component is a clickable element that triggers an action. It",
-          "supports multiple visual styles (`variant`) and sizes (`size`), an `asChild`",
-          "escape hatch to render a different element, and a `loading` state. All standard",
-          "`<button>` attributes such as `onClick`, `type`, and `aria-label` are forwarded.",
+          "The `Button` component is a clickable element that triggers an action. Its look is",
+          "driven by three independent props — `color`, `variant` (fill style), and `shape`",
+          "(corner radius) — so every combination is valid. It also supports a `size`, an",
+          "`asChild` escape hatch, and a `loading` state. All standard `<button>` attributes",
+          "such as `onClick`, `type`, and `aria-label` are forwarded.",
           "",
           "## Usage",
           "",
           "```tsx",
           'import { Button } from "@uhiggs/ui";',
           "",
-          "<Button variant=\"default\" size=\"md\" onClick={handleSave}>",
+          '<Button color="primary" variant="solid" shape="rounded" onClick={handleSave}>',
           "  Save changes",
           "</Button>",
           "```",
@@ -34,18 +46,23 @@ const meta = {
       description: "Button content (text or `ReactNode`).",
       table: { type: { summary: "ReactNode" } },
     },
+    color: {
+      control: "select",
+      options: [...COLORS],
+      description: "Color intent. Pairs with a readable foreground automatically.",
+      table: { defaultValue: { summary: "primary" } },
+    },
     variant: {
       control: "select",
-      options: [
-        "default",
-        "secondary",
-        "outline",
-        "ghost",
-        "destructive",
-        "link",
-      ],
-      description: "Color and visual intent of the button.",
-      table: { defaultValue: { summary: "default" } },
+      options: ["solid", "outline", "ghost", "link"],
+      description: "Fill style. `link` renders as an inline text link.",
+      table: { defaultValue: { summary: "solid" } },
+    },
+    shape: {
+      control: "select",
+      options: ["rounded", "square", "pill"],
+      description: "Corner radius. No visible effect on `variant=\"link\"`.",
+      table: { defaultValue: { summary: "rounded" } },
     },
     size: {
       control: "select",
@@ -74,7 +91,9 @@ const meta = {
   },
   args: {
     children: "Button",
-    variant: "default",
+    color: "primary",
+    variant: "solid",
+    shape: "rounded",
     size: "md",
     loading: false,
     disabled: false,
@@ -88,30 +107,86 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 /**
- * The `variant` prop sets the color and visual intent of the button. `link`
- * renders as an inline text link; `ghost` and `outline` are low-emphasis.
+ * The `color` prop sets the color intent. Each color pairs with a foreground
+ * chosen for contrast, and stays the same hue in light and dark mode. Shown
+ * here with the default `solid` variant.
  */
-export const Variants: Story = {
+export const AllColors: Story = {
   parameters: {
     docs: {
       source: {
-        code: `<Button variant="default">Default</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="destructive">Destructive</Button>
-<Button variant="link">Link</Button>`,
+        code: `<Button color="primary">Primary</Button>
+<Button color="secondary">Secondary</Button>
+<Button color="success">Success</Button>
+<Button color="info">Info</Button>
+<Button color="warning">Warning</Button>
+<Button color="danger">Danger</Button>
+<Button color="light">Light</Button>
+<Button color="dark">Dark</Button>`,
       },
     },
   },
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
-      <Button variant="default">Default</Button>
-      <Button variant="secondary">Secondary</Button>
+      {COLORS.map((color) => (
+        <Button key={color} color={color}>
+          {color.charAt(0).toUpperCase() + color.slice(1)}
+        </Button>
+      ))}
+    </div>
+  ),
+};
+
+/**
+ * The `variant` prop sets the fill style and is independent of `color`. `solid`
+ * fills the button, `outline` shows a colored border, `ghost` is transparent
+ * until hover, and `link` renders as an inline underline-on-hover text link.
+ */
+export const AllVariants: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `<Button color="primary" variant="solid">Solid</Button>
+<Button color="primary" variant="outline">Outline</Button>
+<Button color="primary" variant="ghost">Ghost</Button>
+<Button color="primary" variant="link">Link</Button>`,
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button variant="solid">Solid</Button>
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
-      <Button variant="destructive">Destructive</Button>
       <Button variant="link">Link</Button>
+    </div>
+  ),
+};
+
+/**
+ * The `shape` prop only controls the corner radius, so it combines freely with
+ * any color and variant (e.g. an outline pill). It has no visible effect on the
+ * `link` variant.
+ */
+export const AllShapes: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: `<Button shape="rounded">Rounded</Button>
+<Button shape="square">Square</Button>
+<Button shape="pill">Pill</Button>
+<Button variant="outline" shape="pill">Outline pill</Button>`,
+      },
+    },
+  },
+  render: () => (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button shape="rounded">Rounded</Button>
+      <Button shape="square">Square</Button>
+      <Button shape="pill">Pill</Button>
+      <Button variant="outline" shape="pill">
+        Outline pill
+      </Button>
     </div>
   ),
 };
@@ -179,19 +254,19 @@ export const Loading: Story = {
     docs: {
       source: {
         code: `<Button loading>Save changes</Button>
-<Button loading variant="secondary">Save changes</Button>
-<Button loading variant="outline">Save changes</Button>`,
+<Button loading variant="outline">Save changes</Button>
+<Button loading color="danger">Delete</Button>`,
       },
     },
   },
   render: () => (
     <div className="flex flex-wrap items-center gap-3">
       <Button loading>Save changes</Button>
-      <Button loading variant="secondary">
-        Save changes
-      </Button>
       <Button loading variant="outline">
         Save changes
+      </Button>
+      <Button loading color="danger">
+        Delete
       </Button>
     </div>
   ),
