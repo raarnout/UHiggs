@@ -2,3 +2,4 @@
 export { cn } from "./lib/utils.js";
 export * from "./theme/index.js";
 export * from "./components/button.js";
+export * from "./components/icon-button.js";
