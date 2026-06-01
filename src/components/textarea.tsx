@@ -13,13 +13,16 @@ import { cn } from "../lib/utils.js";
 
 /**
  * Textarea style contract. Tokens only: border/placeholder/ring all reference
- * the design tokens so it inherits the host surface and works in dark mode. The
- * error state is driven by the native `aria-invalid` attribute (no extra prop),
- * so the look always matches the semantics for assistive tech. Shares Input's
- * contract; adds textarea-specific padding and a sensible minimum height.
+ * the design tokens so it inherits the host surface and works in dark mode.
+ * Focus matches Input — a Bootstrap-style 4px glow at 25% opacity hugging the
+ * border plus a matching border, both colored by `--input-ring` (defaults to
+ * `--primary`), so a brand override drives both fields uniformly. The error
+ * state is driven by the native `aria-invalid` attribute (no extra prop) and
+ * swaps the glow/border to `--destructive`. Shares Input's contract; adds
+ * textarea-specific padding and a sensible minimum height.
  */
 const textareaVariants = cva(
-  "flex w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-sm min-h-16 shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:ring-destructive",
+  "flex w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-sm min-h-16 shadow-xs transition-[color,box-shadow,border-color] placeholder:text-muted-foreground focus-visible:outline-none focus-visible:border-[var(--input-ring)] focus-visible:ring-4 focus-visible:ring-[color-mix(in_oklab,var(--input-ring)_25%,transparent)] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/25",
 );
 
 export interface TextareaProps

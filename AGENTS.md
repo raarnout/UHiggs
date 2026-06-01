@@ -35,6 +35,42 @@ conventions, and project rules. Any agent (or human) reads and maintains this fi
 - "use client" at the top of every interactive component file; keep presentational ones server-safe.
 - Build with bunchee so per-file "use client" survives. NEVER add a global banner.
 
+## Theming & branding
+
+**Source separation (durable rule).** The **color palette** comes — for every component,
+now and future — from **Bootstrap 5.3** (its values stored as oklch in our tokens). The
+**behavior, structure, API and a11y** of components come from the existing sources in the
+stack above (shadcn source via `pnpm dlx shadcn add`, Radix primitives, react-hook-form +
+zod, sonner, cmdk, tanstack-table, recharts). We borrow Bootstrap's *colors*, never its
+components/markup/JS. New component workflow: copy the source, bring it onto our API rules,
+map colors onto the tokens (Bootstrap values already live there).
+
+**Three token tiers.**
+1. **Global palette** in `src/styles.css` — the branding API. A consumer rebrands the whole
+   library by overriding these tokens once on `:root` (+ `.dark`).
+2. **Component/semantic tokens** that `var()`-default to a palette token (e.g.
+   `--input-ring: var(--primary)`) — an escape hatch to diverge one component without
+   touching the brand. Optional; add only where divergence is realistically wanted.
+3. Component reads tokens via Tailwind utilities or arbitrary `var()` (like Button's
+   `--btn-color`).
+
+**Tokenization policy (what becomes a token).** Litmus test: *"Would a consumer plausibly
+change this once and expect it everywhere?"* → own token. *"Is it a build detail of this one
+component?"* → plain utility. Three levels: (a) **own token** in `styles.css` for
+brand-defining scales (colors, `--radius`, `--font-sans`/`--font-mono`, `--chart-*`,
+sidebar, z-index); (b) **lean on Tailwind's own vars** for spacing and font-sizes (still
+overridable, just not our namespace); (c) **hardcode** structural mechanics (`h-9`,
+`min-w-0`, `gap-2`). Don't tokenize every value — token-soup hurts readability and upkeep.
+
+**Rules.** Component-level color tokens MUST `var()`-default to a palette token (so dark mode
++ branding flow through); literal values must also be set under `.dark`. Express opacity on
+arbitrary vars with `color-mix(in oklab, var(--x) 25%, transparent)` (no `/25` modifier on
+`var()`).
+
+**Consumer branding workflow.** Override palette tokens on `:root` (+ `.dark`) to rebrand
+globally; scope an override on a wrapper or element to rebrand a section/component locally;
+use the `className` prop (merged last via `cn()`) for a single instance.
+
 ## Definition of Done (per component)
 
 - [ ] Typed props, no `any`, forwardRef where it wraps a DOM node

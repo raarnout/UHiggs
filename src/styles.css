@@ -5,6 +5,12 @@
  * Consumers import this once and map the tokens into their Tailwind theme with
  * `@theme inline` (see README / .storybook/tailwind.css for the mapping).
  * NEVER hardcode colors or radius in components — reference these tokens.
+ *
+ * BRANDING SURFACE — this whole `:root` block (and its `.dark` overrides) is the
+ * public theming API. A consumer rebrands the entire library by overriding these
+ * tokens once on `:root` (and `.dark` where needed); scope an override on a
+ * wrapper/element to diverge locally. Color values are based on the Bootstrap
+ * 5.3 palette (hex shown in comments, stored as oklch).
  */
 
 :root {
@@ -13,21 +19,25 @@
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono:
+    SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
 
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.578 0.228 260.03);
+  /* Neutral surfaces — Bootstrap 5.3 grays. */
+  --background: oklch(1 0 0); /* #ffffff */
+  --foreground: oklch(0.262 0.009 248.19); /* #212529 gray-900 */
+  --card: oklch(1 0 0); /* #ffffff */
+  --card-foreground: oklch(0.262 0.009 248.19); /* #212529 */
+  --popover: oklch(1 0 0); /* #ffffff */
+  --popover-foreground: oklch(0.262 0.009 248.19); /* #212529 */
+  --primary: oklch(0.578 0.228 260.03); /* #0d6efd blue */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.558 0.016 244.89);
+  --secondary: oklch(0.558 0.016 244.89); /* #6c757d gray-600 */
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.982 0.002 247.84); /* #f8f9fa gray-100 */
+  --muted-foreground: oklch(0.558 0.016 244.89); /* #6c757d gray-600 */
+  --accent: oklch(0.982 0.002 247.84); /* #f8f9fa gray-100 */
+  --accent-foreground: oklch(0.262 0.009 248.19); /* #212529 */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
 
@@ -46,31 +56,70 @@
   --dark: oklch(0.262 0.009 248.19);
   --dark-foreground: oklch(0.985 0 0);
 
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.911 0.007 247.9); /* #dee2e6 gray-300 */
+  --input: oklch(0.867 0.011 247.95); /* #ced4da gray-400 */
+  --ring: oklch(0.769 0.015 248.02); /* #adb5bd gray-500 */
 
   /* Input focus accent — drives the focus border + glow on <Input>. Defaults to
      --primary (Bootstrap blue), but is its own token so a host can recolor input
      focus (e.g. per client project) without touching --primary / the button. */
   --input-ring: var(--primary);
+
+  /* Chart / data-viz palette — Bootstrap's extended hues, well-separated for
+     series. Independent of the UI intents so data colors can be rebranded on
+     their own. Same in light & dark, like the intents. */
+  --chart-1: oklch(0.578 0.228 260.03); /* #0d6efd blue */
+  --chart-2: oklch(0.744 0.148 166.36); /* #20c997 teal */
+  --chart-3: oklch(0.727 0.183 51.48); /* #fd7e14 orange */
+  --chart-4: oklch(0.502 0.188 294.99); /* #6f42c1 purple */
+  --chart-5: oklch(0.775 0.138 218.05); /* #0dcaf0 cyan */
+
+  /* Sidebar surface (for admin layouts). Neutral surfaces are Bootstrap grays;
+     brand-bound slots chain to the palette so the sidebar follows the brand by
+     default yet stays independently overridable. */
+  --sidebar: oklch(0.982 0.002 247.84); /* #f8f9fa gray-100 */
+  --sidebar-foreground: oklch(0.262 0.009 248.19); /* #212529 */
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: oklch(0.942 0.005 247.88); /* #e9ecef gray-200 */
+  --sidebar-accent-foreground: oklch(0.262 0.009 248.19); /* #212529 */
+  --sidebar-border: oklch(0.911 0.007 247.9); /* #dee2e6 gray-300 */
+  --sidebar-ring: var(--ring);
+
+  /* Z-index scale (Bootstrap 5.3 stacking order). Structural — consumed as
+     arbitrary `z-[var(--z-*)]`, not mapped into the Tailwind theme. */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-overlay: 1040;
+  --z-modal: 1055;
+  --z-popover: 1070;
+  --z-tooltip: 1080;
+  --z-toast: 1090;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  /* Neutral surfaces — Bootstrap 5.3 dark palette. */
+  --background: oklch(0.262 0.009 248.19); /* #212529 gray-900 */
+  --foreground: oklch(0.911 0.007 247.9); /* #dee2e6 gray-300 */
+  --card: oklch(0.306 0.011 248.2); /* #2b3035 */
+  --card-foreground: oklch(0.911 0.007 247.9); /* #dee2e6 */
+  --popover: oklch(0.306 0.011 248.2); /* #2b3035 */
+  --popover-foreground: oklch(0.911 0.007 247.9); /* #dee2e6 */
+  --muted: oklch(0.345 0.013 248.21); /* #343a40 gray-800 */
+  --muted-foreground: oklch(0.769 0.015 248.02); /* #adb5bd gray-500 */
+  --accent: oklch(0.345 0.013 248.21); /* #343a40 gray-800 */
+  --accent-foreground: oklch(0.911 0.007 247.9); /* #dee2e6 */
   /* Intent colors (primary/secondary/success/info/warning/danger/light/dark and
      destructive) are intentionally NOT overridden here — they stay identical in
      dark mode. Only structural surface tokens flip below. */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --border: oklch(0.428 0.015 248.17); /* #495057 gray-700 */
+  --input: oklch(0.428 0.015 248.17); /* #495057 gray-700 */
+  --ring: oklch(0.558 0.016 244.89); /* #6c757d gray-600 */
+
+  /* Sidebar — Bootstrap dark surfaces; brand-bound slots inherit via var(). */
+  --sidebar: oklch(0.306 0.011 248.2); /* #2b3035 */
+  --sidebar-foreground: oklch(0.911 0.007 247.9); /* #dee2e6 */
+  --sidebar-accent: oklch(0.345 0.013 248.21); /* #343a40 gray-800 */
+  --sidebar-accent-foreground: oklch(0.911 0.007 247.9); /* #dee2e6 */
+  --sidebar-border: oklch(0.428 0.015 248.17); /* #495057 gray-700 */
 }
