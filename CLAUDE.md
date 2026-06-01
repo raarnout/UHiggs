@@ -16,4 +16,5 @@ you up; it is not a substitute for AGENTS.md.
 - **Every change needs a changeset** (`pnpm changeset`).
 - **Plan mode for multi-file work**; show the plan before writing.
 - **Storybook:** autodocs is global; build each component's Docs page from its `*.stories.tsx` (no per-component MDX); shown code must be real usage **with imports**. Full layout in AGENTS.md → "Storybook story conventions".
-- **Definition of Done** per component (typed props, tokens + dark mode, a11y, story, `pnpm typecheck && pnpm lint && pnpm build && pnpm build-storybook` green, `"use client"` in `dist`, changeset): see AGENTS.md.
+- **Tests:** colocated `*.test.tsx` (Vitest + Testing Library, jsdom). Assert DOM/attributes/behavior, never computed styles. Full layout in AGENTS.md → "Testing conventions".
+- **Definition of Done** per component (typed props, tokens + dark mode, a11y, story, test, `pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm build-storybook` green, `"use client"` in `dist`, changeset): see AGENTS.md.

@@ -41,7 +41,8 @@ conventions, and project rules. Any agent (or human) reads and maintains this fi
 - [ ] Tokens only; dark mode works; variants via cva
 - [ ] Keyboard + screen-reader behavior verified (via the primitive)
 - [ ] `<name>.stories.tsx` covering all variants/states, with controls, following the Storybook story conventions below
-- [ ] `pnpm typecheck && pnpm lint && pnpm build` pass — show output
+- [ ] `<name>.test.tsx` (colocated) covering behavior/attributes/forwardRef/events with Vitest + Testing Library, following the testing conventions below
+- [ ] `pnpm typecheck && pnpm lint && pnpm test && pnpm build` pass — show output
 - [ ] `pnpm build-storybook` passes (the autodocs page compiles)
 - [ ] "use client" preserved in dist for this component (grep dist when relevant)
 - [ ] A changeset added
@@ -78,6 +79,27 @@ exception is the primary `Default` story, which stays dynamic (no `render`, no
 `## Usage` block above. Light/dark is covered by the toolbar theme toggle (no per-story dark
 duplicate needed).
 
+## Testing conventions (every component)
+
+Unit tests use **Vitest + @testing-library/react** in a jsdom environment
+(`vitest.config.ts`, setup in `vitest.setup.ts`). Colocate the suite next to the
+source as `<name>.test.tsx` — same as the stories.
+
+- jsdom applies **no Tailwind/CSS**, so assert DOM structure, attributes, and
+  className substrings — never computed styles. Visual/style correctness stays
+  with Storybook + addon-a11y.
+- Cover behavior, not just rendering: forwardRef reaches the DOM node, events
+  fire (and are suppressed when disabled/loading), `aria-*` attributes pass
+  through, variant props map to the expected class substrings, and
+  hooks/providers throw where documented.
+- `scrollHeight` is always `0` under jsdom (no layout engine); stub it per-test
+  with `Object.defineProperty` only when a pixel assertion is genuinely required
+  (see `textarea.test.tsx`).
+- Import test globals explicitly from `"vitest"` (`describe`/`it`/`expect`/`vi`)
+  to satisfy the strict ESLint rules; no `any`.
+- Tests are excluded from the published build via `tsconfig.json` `exclude`; the
+  `src/index.ts` barrel never imports them, so bunchee never bundles them.
+
 ## Workflow
 
 - Plan mode for multi-file work; show the plan before writing.
@@ -89,4 +111,5 @@ duplicate needed).
 
 - Dev: `pnpm storybook` · Build lib: `pnpm build` · Build SB: `pnpm build-storybook`
 - Typecheck: `pnpm typecheck` · Lint: `pnpm lint` · Release: `pnpm changeset`
+- Test: `pnpm test` · Watch: `pnpm test:watch` · Coverage: `pnpm test:coverage`
 - Add shadcn source: `pnpm dlx shadcn@latest add <name>`
