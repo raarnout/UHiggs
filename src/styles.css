@@ -49,6 +49,11 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+
+  /* Input focus accent — drives the focus border + glow on <Input>. Defaults to
+     --primary (Bootstrap blue), but is its own token so a host can recolor input
+     focus (e.g. per client project) without touching --primary / the button. */
+  --input-ring: var(--primary);
 }
 
 .dark {
