@@ -4,3 +4,4 @@ export * from "./theme/index.js";
 export * from "./components/button.js";
 export * from "./components/icon-button.js";
 export * from "./components/input.js";
+export * from "./components/textarea.js";
