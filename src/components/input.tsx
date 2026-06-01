@@ -6,13 +6,16 @@ import { cn } from "../lib/utils.js";
 
 /**
  * Input style contract. Tokens only: border/placeholder/ring all reference the
- * design tokens so it inherits the host surface and works in dark mode. The
- * error state is driven by the native `aria-invalid` attribute (no extra prop),
- * so the look always matches the semantics for assistive tech. `size` heights
- * match Button so an Input and a Button line up on the same form row.
+ * design tokens so it inherits the host surface and works in dark mode. Focus
+ * uses a Bootstrap-style glow — a soft 4px `--primary` ring at 25% opacity that
+ * hugs the border (no offset) plus a `--primary` border. The error state is
+ * driven by the native `aria-invalid` attribute (no extra prop) and swaps the
+ * glow/border to `--destructive`, so the look always matches the semantics for
+ * assistive tech. `size` heights match Button so an Input and a Button line up
+ * on the same form row.
  */
 const inputVariants = cva(
-  "flex w-full min-w-0 rounded-md border border-input bg-transparent shadow-xs transition-colors placeholder:text-muted-foreground file:border-0 file:bg-transparent file:font-medium file:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:ring-destructive",
+  "flex w-full min-w-0 rounded-md border border-input bg-transparent shadow-xs transition-[color,box-shadow,border-color] placeholder:text-muted-foreground file:border-0 file:bg-transparent file:font-medium file:text-foreground focus-visible:outline-none focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/25 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:focus-visible:border-destructive aria-invalid:focus-visible:ring-destructive/25",
   {
     variants: {
       size: {
