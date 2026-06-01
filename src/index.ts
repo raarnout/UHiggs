@@ -5,3 +5,4 @@ export * from "./components/button.js";
 export * from "./components/icon-button.js";
 export * from "./components/input.js";
 export * from "./components/textarea.js";
+export * from "./components/label.js";
